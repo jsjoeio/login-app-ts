@@ -6,12 +6,25 @@ type PasswordMatchProps = {
   confirmPassword: string;
 };
 
-function PasswordMatch({ passwordMatch, password, confirmPassword }: PasswordMatchProps) {
-  const passwordOrConfirmPasswordMissing = password === "" || confirmPassword === "";
+function PasswordMatch({
+  passwordMatch,
+  password,
+  confirmPassword,
+}: PasswordMatchProps) {
+  const passwordOrConfirmPasswordMissing =
+    password === "" || confirmPassword === "";
   const notEmptyAndMatch = !passwordOrConfirmPasswordMissing && passwordMatch;
   if (passwordMatch === null) return null;
 
-  return <p className={`text-${notEmptyAndMatch ? "white" : "red"}-500 text-xs italic`}>Passwords {notEmptyAndMatch ? "" : "do not"} match.</p>;
+  return (
+    <p
+      className={`${
+        notEmptyAndMatch ? "text-white-500" : "text-red-500"
+      } text-xs italic`}
+    >
+      Passwords {notEmptyAndMatch ? "" : "do not"} match.
+    </p>
+  );
 }
 
 export function SignupForm() {
@@ -31,9 +44,15 @@ export function SignupForm() {
 
   return (
     <div className="w-full max-w-xs">
-      <form className="bg-gray-900 shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleFormSubmit}>
+      <form
+        className="bg-gray-900 shadow-md rounded px-8 pt-6 pb-8 mb-4"
+        onSubmit={handleFormSubmit}
+      >
         <div className="mb-4">
-          <label className="block text-[#4d91db] text-sm font-bold mb-2" htmlFor="username">
+          <label
+            className="block text-[#4d91db] text-sm font-bold mb-2"
+            htmlFor="username"
+          >
             Username
           </label>
           <input
@@ -47,7 +66,10 @@ export function SignupForm() {
           />
         </div>
         <div className="mb-6">
-          <label className="block text-[#4d91db] text-sm font-bold mb-2" htmlFor="password">
+          <label
+            className="block text-[#4d91db] text-sm font-bold mb-2"
+            htmlFor="password"
+          >
             Password
           </label>
           <input
@@ -59,7 +81,10 @@ export function SignupForm() {
               setPassword(event.target.value)
             }
           />
-          <label className="block text-[#4d91db] text-sm font-bold mb-2" htmlFor="confirm-password">
+          <label
+            className="block text-[#4d91db] text-sm font-bold mb-2"
+            htmlFor="confirm-password"
+          >
             Confirm Password
           </label>
           <input
@@ -71,7 +96,11 @@ export function SignupForm() {
               setConfirmPassword(event.target.value)
             }
           />
-          <PasswordMatch passwordMatch={passwordMatch} password={password} confirmPassword={confirmPassword} />
+          <PasswordMatch
+            passwordMatch={passwordMatch}
+            password={password}
+            confirmPassword={confirmPassword}
+          />
         </div>
         <div className="flex items-center justify-center">
           <button

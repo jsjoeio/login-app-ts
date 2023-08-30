@@ -1,4 +1,3 @@
-import './App.css'
 import { SignupForm } from "./SignupForm";
 
 function App() {
