@@ -2,16 +2,16 @@ import { useState, ChangeEvent, FormEvent } from "react";
 
 type PasswordMatchProps = {
   passwordMatch: null | boolean;
+  password: string;
+  confirmPassword: string;
 };
 
-function PasswordMatch({ passwordMatch }: PasswordMatchProps) {
+function PasswordMatch({ passwordMatch, password, confirmPassword }: PasswordMatchProps) {
+  const passwordOrConfirmPasswordMissing = password === "" || confirmPassword === "";
+  const notEmptyAndMatch = !passwordOrConfirmPasswordMissing && passwordMatch;
   if (passwordMatch === null) return null;
 
-  return (
-    <p id="password-match-msg">
-      Passwords {passwordMatch ? "" : "do not"} match.
-    </p>
-  );
+  return <p className={`text-${notEmptyAndMatch ? "white" : "red"}-500 text-xs italic`}>Passwords {notEmptyAndMatch ? "" : "do not"} match.</p>;
 }
 
 export function SignupForm() {
@@ -30,48 +30,58 @@ export function SignupForm() {
   };
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline text-black">Hello world!</h1>
-      <h2>User Signup</h2>
-      <form onSubmit={handleFormSubmit}>
-        <div>
-          <label htmlFor="username">Username:</label>
+    <div className="w-full max-w-xs">
+      <form className="bg-gray-900 shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleFormSubmit}>
+        <div className="mb-4">
+          <label className="block text-[#4d91db] text-sm font-bold mb-2" htmlFor="username">
+            Username
+          </label>
           <input
-            type="text"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-[#4d91db] leading-tight focus:outline-none focus:shadow-outline"
             id="username"
+            type="text"
             value={username}
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
               setUsername(event.target.value)
             }
           />
         </div>
-        <div>
-          <label htmlFor="password">Password:</label>
+        <div className="mb-6">
+          <label className="block text-[#4d91db] text-sm font-bold mb-2" htmlFor="password">
+            Password
+          </label>
           <input
-            type="password"
+            className="shadow appearance-none border border-white-500 rounded w-full py-2 px-3 text-[#4d91db] mb-3 leading-tight focus:outline-none focus:shadow-outline"
             id="password"
+            type="password"
             value={password}
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
               setPassword(event.target.value)
             }
           />
-        </div>
-        <div>
-          <label htmlFor="confirm-password">Confirm Password:</label>
+          <label className="block text-[#4d91db] text-sm font-bold mb-2" htmlFor="confirm-password">
+            Confirm Password
+          </label>
           <input
-            type="password"
+            className="shadow appearance-none border border-white-500 rounded w-full py-2 px-3 text-[#4d91db] mb-3 leading-tight focus:outline-none focus:shadow-outline"
             id="confirm-password"
+            type="password"
             value={confirmPassword}
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
               setConfirmPassword(event.target.value)
             }
           />
+          <PasswordMatch passwordMatch={passwordMatch} password={password} confirmPassword={confirmPassword} />
         </div>
-        <div>
-          <button type="submit">Sign Up</button>
+        <div className="flex items-center justify-center">
+          <button
+            className="bg-[#4d91db] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="submit"
+          >
+            Sign Up
+          </button>
         </div>
       </form>
-      <PasswordMatch passwordMatch={passwordMatch} />
     </div>
   );
 }
